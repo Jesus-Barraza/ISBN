@@ -1,0 +1,57 @@
+#Método para retiro de caracteres de - y " "
+def normalize_isbn(code):
+    code=code.replace(" ", "")
+    code=code.replace("-", "")
+    return code
+
+#Validación ISBN-10
+def is_valid_isbn10(code):
+    cache=0
+    for i in range(len(code)):
+        try:
+            cache+=(int(code[i])*(10-i))
+        except:
+            if code[i]!="X":
+                return False
+            else:
+                pass
+    if cache%11==0:
+        return True
+    else:
+        return False
+
+#Validación ISBN-13
+def is_valid_isbn13(code):
+    cache=0
+    for i in range(len(code)):
+        try:
+            if i%2: 
+                cache+=3*code[i]
+            else:
+                cache+=code[i]
+        except:
+            return False
+    if cache%10==0:
+        return True
+    else:
+        return False
+
+#Detección de ISBN
+def detect_isbn(code):
+    normalize_isbn(code)
+    if len(code)<12 and len(code)>8:
+        print("\n\t Se detectó un código ISBN-10")
+        ver=is_valid_isbn10(code)
+        a="ISBN-10"
+    elif len(code)<15 and len(code)>11:
+        print("\n\t Se detectó un código ISBN-13")
+        ver=is_valid_isbn13(code)
+        a="ISBN-13"
+    else:
+        print("\n\t Este código no es válido, inténtelo de nuevo")
+    
+    if ver:
+        print(f"\n\t Este código es válido para {a}")
+    else:
+        print("Este código no es válido, inténtelo de nuevo")
+        
