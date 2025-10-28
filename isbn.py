@@ -65,7 +65,6 @@ def detect_isbn(code):
 
 #Menú
 def menu():
-    borrarPantalla()
     rep=True
     while rep:
         print("\n\t\t Validación de códigos ISBN")
@@ -75,6 +74,7 @@ def menu():
             code=normalize_isbn(input("Ingrese el código ISBN a buscar: "))
             detect_isbn(code)
             esperarTecla()
+            borrarPantalla()
         elif rep=="2":
             borrarPantalla()
             print("Terminó la ejecución del sistema")
