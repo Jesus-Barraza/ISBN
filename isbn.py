@@ -1,3 +1,11 @@
+#Funciones normales
+def borrarPantalla():
+    import os
+    os.system("cls")
+
+def esperarTecla():
+    input("\n\t\tPresione Enter para continuar")
+
 #Método para retiro de caracteres de - y " "
 def normalize_isbn(code):
     code=code.replace(" ", "")
@@ -54,4 +62,26 @@ def detect_isbn(code):
         print(f"\n\t Este código es válido para {a}")
     else:
         print("Este código no es válido, inténtelo de nuevo")
-        
+
+#Menú
+def menu():
+    borrarPantalla()
+    rep=True
+    while rep:
+        print("\n\t\t Validación de códigos ISBN")
+        rep=input("\n\n1-Validar código ISB\n2-Salir\n Elige una opción (1-2):").strip()
+        if rep=="1":
+            borrarPantalla()
+            code=normalize_isbn(input("Ingrese el código ISBN a buscar: "))
+            detect_isbn(code)
+            esperarTecla()
+        elif rep=="2":
+            borrarPantalla()
+            print("Terminó la ejecución del sistema")
+            rep=False
+        else:
+            borrarPantalla()
+            print("Opción incorrecta, inténtelo de nuevo")
+            rep=True
+
+menu()
