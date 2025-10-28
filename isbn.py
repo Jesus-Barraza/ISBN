@@ -31,18 +31,16 @@ def is_valid_isbn10(code):
 #Validación ISBN-13
 def is_valid_isbn13(code):
     cache=0
-    for i in range(len(code)):
+    for i in range(len(code)-1):
         try:
-            if i%2: 
-                cache+=3*code[i]
+            if i%2==0: 
+                cache+=int(code[i])
             else:
-                cache+=code[i]
+                cache+=3*int(code[i])
         except:
             return False
-    if cache%10==0:
-        return True
-    else:
-        return False
+    control=(10-(cache%10))%10
+    return control==int(code[12])
 
 #Detección de ISBN
 def detect_isbn(code):
@@ -65,10 +63,11 @@ def detect_isbn(code):
 
 #Menú
 def menu():
+    borrarPantalla()
     rep=True
     while rep:
         print("\n\t\t Validación de códigos ISBN")
-        rep=input("\n\n1-Validar código ISB\n2-Salir\n Elige una opción (1-2):").strip()
+        rep=input("\n\n1-Validar código ISBN\n2-Salir\n Elige una opción (1-2):").strip()
         if rep=="1":
             borrarPantalla()
             code=normalize_isbn(input("Ingrese el código ISBN a buscar: "))
